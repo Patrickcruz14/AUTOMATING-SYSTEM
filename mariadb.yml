@@ -1,0 +1,22 @@
+- hosts: all
+  become: true
+  vars_files:
+    - config.yaml
+  tasks:
+    - name: Install MariaDB
+      package:
+        name: mariadb-server
+        state: present
+    - name: Start and enable MariaDB
+      service:
+        name: mariadb
+        state: started
+        enabled: true
+    - name: Create database and table
+      shell: |
+        mysql -e "CREATE DATABASE IF NOT EXISTS examdb;
+        USE examdb;
+        CREATE TABLE IF NOT EXISTS students (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(50));
+        INSERT INTO students (name) VALUES ('{{ db_student_name }}');"
+      args:
+        warn: false

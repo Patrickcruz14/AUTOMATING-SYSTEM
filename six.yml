@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: true
+  vars_files:
+    - "./config.yml"   # ✅ matches the file name you have
+  tasks:
+    - name: Create system user from config.yml
+      user:
+        name: "{{ new_system_user }}"
+        password: "{{ new_system_password }}"
+        state: present
+        create_home: yes

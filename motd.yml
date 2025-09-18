@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: true
+  vars_files:
+    - ./config.yaml   
+  tasks:
+    - name: Set MOTD
+      copy:
+        dest: /etc/motd
+        content: "{{ motd_message | default('Ansible Managed node by patrick') }}"

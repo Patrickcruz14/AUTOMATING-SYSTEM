@@ -1,3 +1,0 @@
----
-new_system_user: "patrick_user"
-new_system_password: "{{ 'MySecurePassword123' | password_hash('sha512') }}"
